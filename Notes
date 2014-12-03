@@ -1,0 +1,29 @@
+
+Classes:
+Restaurant
+	- Contains tables
+	(Admin) Add Table
+	(Admin) Remove Table
+Reservation
+	+ Date and Time
+	- References tables
+Table
+	+ Table #
+	+ Table Position
+	+ Seat Count
+	+ Sees if it has a reservation at a time.
+
+Methods:
+-- Customers
+Create Reservation
+Cancel Reservation
+-- Admin
+Display reserved tables
+Display reservation information
+
+Use Cases:
+1. User opens application
+2. Selects that they are customer
+3. User scrolls through dates
+	Dates display times and amount of seats available.
+
