@@ -1,0 +1,153 @@
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+public class CustomerScreen {
+
+	public static void main(String[] args) {
+		// Main Screen
+		
+		JFrame frame = new JFrame("Customer Screen");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JPanel content = new JPanel();
+		content.setLayout(new GridBagLayout());
+		GridBagConstraints screenPanel = new GridBagConstraints();
+		screenPanel.gridx = 0;
+		screenPanel.gridy = 0;
+		screenPanel.fill = GridBagConstraints.BOTH;
+		
+		///
+		
+		JPanel screen1 = new JPanel();
+		screen1.setLayout(new GridBagLayout());
+		screen1.setBorder(new EmptyBorder(25, 25, 25, 25));
+		{
+			GridBagConstraints gbc = new GridBagConstraints();
+			gbc.gridx = 0;
+			gbc.gridy = GridBagConstraints.RELATIVE;
+			gbc.fill = GridBagConstraints.HORIZONTAL;
+			gbc.insets = new Insets(0,0,10,0);
+	
+			
+			JLabel label = new JLabel("Welcome to My Restaurant");
+			label.setHorizontalAlignment(JLabel.CENTER);
+			label.setFont(new Font("Arial", Font.BOLD, 24));
+			label.setBorder(new EmptyBorder(0, 0, 50, 0));
+			screen1.add(label, gbc);
+			
+			JButton reserveButton = new JButton("Reserve a Table");
+			reserveButton.setFont(new Font("Arial", Font.PLAIN, 20));
+			reserveButton.setPreferredSize(new Dimension(0, 50));
+			screen1.add(reserveButton, gbc);
+			
+			JButton cancelButton = new JButton("Cancel");
+			cancelButton.setFont(new Font("Arial", Font.PLAIN, 20));
+			cancelButton.setPreferredSize(new Dimension(0, 50));
+			screen1.add(cancelButton, gbc);
+			
+			content.add(screen1, screenPanel);
+		}
+		screen1.setVisible(false);
+		
+		///
+		
+		JPanel screen2 = new JPanel();
+		screen2.setLayout(new GridBagLayout());
+		screen2.setBorder(new EmptyBorder(25, 25, 25, 25));
+		{
+			// Todo: Fill this up with the second screen... lol
+			
+			GridBagConstraints gbc = new GridBagConstraints();
+			gbc.gridx = 0;
+			gbc.gridy = GridBagConstraints.RELATIVE;
+			gbc.fill = GridBagConstraints.BOTH;
+			gbc.insets = new Insets(0,0,10,0);
+
+			JPanel weekSelector = new JPanel();
+			weekSelector.setLayout(new GridBagLayout());
+			
+			{
+				
+				JButton previousButton = new JButton("Prev");
+				previousButton.setFont(new Font("Arial", Font.PLAIN, 20));
+				gbc.gridx = 0;
+				gbc.gridy = 0;
+				gbc.weightx = 0;
+	//			gbc.fill = GridBagConstraints.NONE;
+	//			gbc.gridwidth = GridBagConstraints.REMAINDER;
+				weekSelector.add(previousButton, gbc);
+	
+				JLabel dateLabel = new JLabel("<DATE> Ð <DATE>");
+				dateLabel.setHorizontalAlignment(JLabel.CENTER);
+				dateLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+				dateLabel.setBorder(new EmptyBorder(0, 0, 0, 0));
+				dateLabel.setPreferredSize(new Dimension(300, 40));
+				gbc.gridx = 1;
+				gbc.gridy = 0;
+				gbc.weightx = 1;
+	//			gbc.fill = GridBagConstraints.NONE;
+	//			gbc.gridwidth = GridBagConstraints.REMAINDER;
+				weekSelector.add(dateLabel, gbc);
+				
+				JButton nextButton = new JButton("Next");
+				nextButton.setFont(new Font("Arial", Font.PLAIN, 20));
+				gbc.gridx = 2;
+				gbc.gridy = 0;
+				gbc.weightx = 0;
+	//			gbc.fill = GridBagConstraints.NONE;
+				gbc.gridwidth = GridBagConstraints.REMAINDER;
+				weekSelector.add(nextButton, gbc);
+	
+			}
+
+			gbc.gridx = 0;
+			gbc.gridy = 0;
+			gbc.weightx = 0;
+			gbc.fill = GridBagConstraints.HORIZONTAL;
+			screen2.add(weekSelector, gbc);
+			
+			JPanel datesGrid = new JPanel();
+			datesGrid.setLayout(new GridBagLayout());
+
+			{
+				for (int i = 0; i < 8; i++) {
+					JButton blah = new JButton("Prev");
+					blah.setFont(new Font("Arial", Font.PLAIN, 20));
+					gbc.weightx = 0.0;
+					gbc.gridx = i;
+					gbc.gridy = 0;
+					gbc.fill = GridBagConstraints.BOTH;
+					gbc.gridwidth = GridBagConstraints.RELATIVE;
+					datesGrid.add(blah, gbc);
+				}
+			}
+			
+			gbc.gridx = 0;
+			gbc.gridy = 1;
+			gbc.weightx = 0;
+			gbc.fill = GridBagConstraints.BOTH;
+			gbc.gridwidth = GridBagConstraints.NONE;
+			screen2.add(datesGrid, gbc);
+
+			content.add(screen2, screenPanel);
+		}
+		screen2.setVisible(true);
+		
+		///
+
+		frame.add(content);
+		frame.setPreferredSize(new Dimension(640, 480));
+		frame.setVisible(true);
+		frame.pack();
+	}
+
+}
