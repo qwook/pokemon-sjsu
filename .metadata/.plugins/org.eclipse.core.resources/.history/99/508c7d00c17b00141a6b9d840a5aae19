@@ -3,8 +3,6 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -23,22 +21,20 @@ public class DaySelectionPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Calendar[] days = new Calendar[7];
+	private Date[] days = new Date[7];
 
-	private DateFormat fullDateFormat = new SimpleDateFormat("MMM dd, yyyy");
+	private DateFormat fullDateFormat = new SimpleDateFormat("MM/dd/yyyy");
 	private DateFormat dayAndMonthFormat = new SimpleDateFormat("MM/dd");
-	
-	private JLabel [] dateLabels = new JLabel[7];
-	private JButton[] selectionButtons = new JButton[7*13];
-	private JLabel dateSelectionLabel;
 	
 	public DaySelectionPanel() {
 
-		// Fill out the current displayed dates
+		// start the week out with right now...
+		Calendar rightNow = Calendar.getInstance();
+		
 		for (int i = 0; i < 7; i++) {
 			Calendar futureDate = Calendar.getInstance();
-			futureDate.add(Calendar.DATE, i);
-			days[i] = futureDate;
+			futureDate.add(Calendar.DATE, 1);
+			days[i] = rightNow.getTime();
 		}
 		
 		this.setLayout(new GridBagLayout());
@@ -59,35 +55,23 @@ public class DaySelectionPanel extends JPanel {
 				
 				JButton previousButton = new JButton("Prev");
 				previousButton.setFont(new Font("Arial", Font.PLAIN, 20));
-				previousButton.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						DaySelectionPanel.this.GoToPreviousWeek();
-					}
-				});
 				gbc.gridx = 0;
 				gbc.gridy = 0;
 				gbc.weightx = 0;
 				weekSelector.add(previousButton, gbc);
 	
-				dateSelectionLabel = new JLabel(fullDateFormat.format(days[0].getTime()) + " Ð " + fullDateFormat.format(days[6].getTime()));
-				dateSelectionLabel.setHorizontalAlignment(JLabel.CENTER);
-				dateSelectionLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-				dateSelectionLabel.setBorder(new EmptyBorder(0, 0, 0, 0));
-				dateSelectionLabel.setPreferredSize(new Dimension(300, 40));
+				JLabel dateLabel = new JLabel(fullDateFormat.format(days[0]) + " Ð " + fullDateFormat.format(days[7]));
+				dateLabel.setHorizontalAlignment(JLabel.CENTER);
+				dateLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+				dateLabel.setBorder(new EmptyBorder(0, 0, 0, 0));
+				dateLabel.setPreferredSize(new Dimension(300, 40));
 				gbc.gridx = 1;
 				gbc.gridy = 0;
 				gbc.weightx = 1;
-				weekSelector.add(dateSelectionLabel, gbc);
+				weekSelector.add(dateLabel, gbc);
 				
 				JButton nextButton = new JButton("Next");
 				nextButton.setFont(new Font("Arial", Font.PLAIN, 20));
-				nextButton.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						DaySelectionPanel.this.GoToNextWeek();
-					}
-				});
 				gbc.gridx = 2;
 				gbc.gridy = 0;
 				gbc.weightx = 0;
@@ -118,14 +102,14 @@ public class DaySelectionPanel extends JPanel {
 				datesGrid.add(timeLabel, gbc);
 				
 				for (int i = 1; i < 8; i++) {
-					dateLabels[i-1] = new JLabel(dayAndMonthFormat.format(days[i-1].getTime()));
-					dateLabels[i-1].setFont(new Font("Arial", Font.PLAIN, 12));
-					dateLabels[i-1].setHorizontalAlignment(JLabel.CENTER);
+					JLabel label = new JLabel("10/8");
+					label.setFont(new Font("Arial", Font.PLAIN, 12));
+					label.setHorizontalAlignment(JLabel.CENTER);
 					gbc.weightx = 1;
 					gbc.gridx = i;
 					gbc.gridy = 0;
 					gbc.gridwidth = 1;
-					datesGrid.add(dateLabels[i-1], gbc);
+					datesGrid.add(label, gbc);
 				}
 				
 				for (int y = 0; y < 13; y++) {
@@ -172,24 +156,6 @@ public class DaySelectionPanel extends JPanel {
 			this.add(datesGrid, gbc);
 		}
 		
-	}
-	
-	private void GoToNextWeek() {
-		for (int i = 0; i < 7; i++) {
-			days[i].add(Calendar.DATE, 7);
-			dateLabels[i].setText(dayAndMonthFormat.format(days[i].getTime()));
-		}
-		
-		dateSelectionLabel.setText(fullDateFormat.format(days[0].getTime()) + " Ð " + fullDateFormat.format(days[6].getTime()));
-	}
-	
-	private void GoToPreviousWeek() {
-		for (int i = 0; i < 7; i++) {
-			days[i].add(Calendar.DATE, 7);
-			dateLabels[i].setText(dayAndMonthFormat.format(days[i].getTime()));
-		}
-		
-		dateSelectionLabel.setText(fullDateFormat.format(days[0].getTime()) + " Ð " + fullDateFormat.format(days[6].getTime()));
 	}
 	
 }

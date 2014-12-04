@@ -30,7 +30,6 @@ public class DaySelectionPanel extends JPanel {
 	
 	private JLabel [] dateLabels = new JLabel[7];
 	private JButton[] selectionButtons = new JButton[7*13];
-	private JLabel dateSelectionLabel;
 	
 	public DaySelectionPanel() {
 
@@ -62,7 +61,7 @@ public class DaySelectionPanel extends JPanel {
 				previousButton.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						DaySelectionPanel.this.GoToPreviousWeek();
+						DaySelectionPanel.this.GoToNextWeek();
 					}
 				});
 				gbc.gridx = 0;
@@ -70,24 +69,18 @@ public class DaySelectionPanel extends JPanel {
 				gbc.weightx = 0;
 				weekSelector.add(previousButton, gbc);
 	
-				dateSelectionLabel = new JLabel(fullDateFormat.format(days[0].getTime()) + " Ð " + fullDateFormat.format(days[6].getTime()));
-				dateSelectionLabel.setHorizontalAlignment(JLabel.CENTER);
-				dateSelectionLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-				dateSelectionLabel.setBorder(new EmptyBorder(0, 0, 0, 0));
-				dateSelectionLabel.setPreferredSize(new Dimension(300, 40));
+				JLabel dateLabel = new JLabel(fullDateFormat.format(days[0].getTime()) + " Ð " + fullDateFormat.format(days[6].getTime()));
+				dateLabel.setHorizontalAlignment(JLabel.CENTER);
+				dateLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+				dateLabel.setBorder(new EmptyBorder(0, 0, 0, 0));
+				dateLabel.setPreferredSize(new Dimension(300, 40));
 				gbc.gridx = 1;
 				gbc.gridy = 0;
 				gbc.weightx = 1;
-				weekSelector.add(dateSelectionLabel, gbc);
+				weekSelector.add(dateLabel, gbc);
 				
 				JButton nextButton = new JButton("Next");
 				nextButton.setFont(new Font("Arial", Font.PLAIN, 20));
-				nextButton.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						DaySelectionPanel.this.GoToNextWeek();
-					}
-				});
 				gbc.gridx = 2;
 				gbc.gridy = 0;
 				gbc.weightx = 0;
@@ -176,20 +169,18 @@ public class DaySelectionPanel extends JPanel {
 	
 	private void GoToNextWeek() {
 		for (int i = 0; i < 7; i++) {
-			days[i].add(Calendar.DATE, 7);
-			dateLabels[i].setText(dayAndMonthFormat.format(days[i].getTime()));
+			Calendar futureDate = Calendar.getInstance();
+			futureDate.add(Calendar.DATE, 7);
+			days[i] = futureDate;
+			
+			dateLabels[i].setText(dayAndMonthFormat.format(futureDate.getTime()));
 		}
 		
-		dateSelectionLabel.setText(fullDateFormat.format(days[0].getTime()) + " Ð " + fullDateFormat.format(days[6].getTime()));
+		System.out.println("hey");
 	}
 	
 	private void GoToPreviousWeek() {
-		for (int i = 0; i < 7; i++) {
-			days[i].add(Calendar.DATE, 7);
-			dateLabels[i].setText(dayAndMonthFormat.format(days[i].getTime()));
-		}
 		
-		dateSelectionLabel.setText(fullDateFormat.format(days[0].getTime()) + " Ð " + fullDateFormat.format(days[6].getTime()));
 	}
 	
 }

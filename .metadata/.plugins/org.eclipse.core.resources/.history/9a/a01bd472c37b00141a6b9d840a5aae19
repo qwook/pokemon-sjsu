@@ -179,17 +179,11 @@ public class DaySelectionPanel extends JPanel {
 			days[i].add(Calendar.DATE, 7);
 			dateLabels[i].setText(dayAndMonthFormat.format(days[i].getTime()));
 		}
-		
 		dateSelectionLabel.setText(fullDateFormat.format(days[0].getTime()) + " Ð " + fullDateFormat.format(days[6].getTime()));
 	}
 	
 	private void GoToPreviousWeek() {
-		for (int i = 0; i < 7; i++) {
-			days[i].add(Calendar.DATE, 7);
-			dateLabels[i].setText(dayAndMonthFormat.format(days[i].getTime()));
-		}
 		
-		dateSelectionLabel.setText(fullDateFormat.format(days[0].getTime()) + " Ð " + fullDateFormat.format(days[6].getTime()));
 	}
 	
 }
