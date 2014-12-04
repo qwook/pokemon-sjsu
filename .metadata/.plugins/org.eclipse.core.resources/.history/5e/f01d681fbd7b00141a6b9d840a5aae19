@@ -28,8 +28,7 @@ public class CustomerScreen {
 		
 		///
 		
-		DaySelectionPanel screen2 = new DaySelectionPanel();
-		wrapper.add(screen2, screenPanel);
+		JPanel screen2 = new JPanel();
 		screen2.setVisible(true);
 		
 		///
